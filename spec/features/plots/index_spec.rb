@@ -27,9 +27,42 @@ RSpec.describe 'Plots Index Page' do
           expect(page).to have_content(@basil.name)
         end
       end
-      # it 'next to each plants name I see a link to remove that plant from that plot' do
-      #   expect(page).to have_content("Remove Plant From Plot")
-      # end
+
+      it 'next to each plants name I see a link to remove that plant from that plot' do
+        within("#plot-#{@plot_1.id}") do
+          expect(page).to have_content("Plot number: #{@plot_1.number}")
+          expect(page).to have_link("Remove #{@tomato.name}")
+          expect(page).to have_content("Remove #{@basil.name}")
+        end
+
+        within("#plot-#{@plot_2.id}") do
+          expect(page).to have_content("Plot number: #{@plot_2.number}")
+          expect(page).to have_content("Remove #{@tomato.name}")
+          expect(page).to have_content("Remove #{@basil.name}")
+        end
+      end
+
+      it 'when I click on that link I am returned to the plots index page I no longer see that plant listed under that plot' do
+        within("#plot-#{@plot_1.id}") do
+          click_link "Remove #{@tomato.name}"
+
+          expect(current_path).to eq(plots_path)
+          
+          expect(page).to have_content(@basil.name)
+          expect(page).to have_content("Remove #{@basil.name}")
+
+          expect(page).to_not have_content(@tomato.name)
+          expect(page).to_not have_content("Remove #{@tomato.name}")
+        end
+       
+        within("#plot-#{@plot_2.id}") do
+          expect(page).to have_content("Plot number: #{@plot_2.number}")
+          expect(page).to have_content(@tomato.name)
+          expect(page).to have_content("Remove #{@tomato.name}")
+          expect(page).to have_content(@basil.name)
+          expect(page).to have_content("Remove #{@basil.name}")
+        end
+      end
     end
   end
 end
