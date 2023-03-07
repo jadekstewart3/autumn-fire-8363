@@ -3,14 +3,17 @@ RSpec.describe 'Plots Index Page' do
   describe 'As a visitor' do
     before :each do
       @garden = Garden.create!(name: "Turing Community Garden", organic: true)
+
       @plot_1 = @garden.plots.create!(number: 25, size: "Large", direction: "East")
       @plot_2 = @garden.plots.create!(number: 26, size: "Medium", direction: "West")
       @tomato = Plant.create!(name: "Tomato", description: "Red", days_to_harvest: 100)
       @basil = Plant.create!(name: "Basil", description: "Green", days_to_harvest: 50)
+
       PlantPlot.create!(plot_id: @plot_1.id, plant_id: @tomato.id)
       PlantPlot.create!(plot_id: @plot_1.id, plant_id: @basil.id)
       PlantPlot.create!(plot_id: @plot_2.id, plant_id: @basil.id)
       PlantPlot.create!(plot_id: @plot_2.id, plant_id: @tomato.id)
+      
       visit plots_path
     end
     context 'When I visit the plots index page' do

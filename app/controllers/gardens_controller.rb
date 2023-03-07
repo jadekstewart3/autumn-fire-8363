@@ -1,6 +1,6 @@
 class GardensController < ApplicationController
   def show
     @garden = Garden.find(params[:id])
-    @unique_plants = @garden.unique_plants_less_than_100_days
+    @popular_unique_plants = @garden.plants_by_popularity_less_than_100_days
   end
 end

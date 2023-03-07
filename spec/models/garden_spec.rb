@@ -22,11 +22,12 @@ RSpec.describe Garden do
       PlantPlot.create!(plot_id: @plot_1.id, plant_id: @peppers.id)
       PlantPlot.create!(plot_id: @plot_1.id, plant_id: @peppers.id)
       PlantPlot.create!(plot_id: @plot_2.id, plant_id: @peppers.id)
+      PlantPlot.create!(plot_id: @plot_2.id, plant_id: @peppers.id)
     end
-
-    it 'returns unique plants that take less than 100 days to harvest' do
-      expect(@garden.unique_plants_less_than_100_days).to eq([@basil.name, @peppers.name])
-      expect(@garden.unique_plants_less_than_100_days).to_not eq([@tomato.name, @basil.name, @peppers.name])
+    
+    it 'returns a unique list of plants that take less than 100 days to harvest, sorted by number of plants in descending order' do
+      expect(@garden.plants_by_popularity_less_than_100_days).to eq([@peppers.name, @basil.name])
+      expect(@garden.plants_by_popularity_less_than_100_days).to_not eq([@peppers.name, @basil.name, @tomato.name])
     end
   end
 end
