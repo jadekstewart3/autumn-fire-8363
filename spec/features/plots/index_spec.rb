@@ -19,6 +19,7 @@ RSpec.describe 'Plots Index Page' do
     context 'When I visit the plots index page' do
 
       it 'I see a list of all plot numbers and under that plot number I see all of the associated plants' do
+        save_and_open_page
         within("#plot-#{@plot_1.id}") do
           expect(page).to have_content("Plot number: #{@plot_1.number}")
           expect(page).to have_content(@tomato.name)

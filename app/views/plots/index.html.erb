@@ -1,8 +1,8 @@
 <% @plots.each do |plot| %>
-<div id="plot-<%=plot.id%>">
-  <p>Plot number: <%= plot.number %>
+<ul id="plot-<%=plot.id%>">
+  <li>Plot number: <%= plot.number %></li>
   <p>Plants:</p> <% plot.plants.each do |plant| %>
     <p><%= plant.name %> <%= link_to "Remove #{plant.name}", "/plots/#{plot.id}/plants/#{plant.id}", method: :delete, local: :true %></p>
   <% end %>
-  </div>
+  </ul>
 <% end %>
